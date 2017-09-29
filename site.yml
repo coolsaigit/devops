@@ -1,0 +1,11 @@
+---
+- name: install ansible
+  hosts: tag_class_odx_jumpbox
+  become: yes
+
+  roles:
+   - ansible
+    # - web
+    # - mysql
+    # - wordpress
+

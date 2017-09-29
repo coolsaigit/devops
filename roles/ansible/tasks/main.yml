@@ -1,0 +1,30 @@
+---
+- name: upgrade all packages
+  yum: name=* state=latest
+- name: install the 'Development tools' package group
+  yum: name="@Development tools" state=present
+- name: install git
+  yum: name="git" state=present  
+- name: install wget
+  yum: name="wget" state=present  
+- name: download epel release
+  get_url:
+    url: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    dest: /tmp/
+    mode: 0440   
+- name: Install epel package
+  yum:
+     name: /tmp/epel-release-latest-7.noarch.rpm
+     state: present    
+- name: install required packages
+  yum: name={{ item }} state=present
+  with_items:
+    # - epel-release
+    - python-pip
+    - python-devel
+- name: install setuptools
+  pip: name=setuptools extra_args='--upgrade'
+- name: install ansible
+  pip: name=ansible
+- name: install awscli
+  pip: name=awscli  

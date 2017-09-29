@@ -1,0 +1,64 @@
+ansible_ssh_user: ec2-user  
+ansible_ssh_private_key_file: ~/.ssh/odx_ansible_key.pem
+
+#ansible playbook path
+filepath: /Users/svelliangiri/Code/ansible
+
+cloud: aws #use amazon or redhat  
+region: us-east-1
+env: dev
+prefix: odx
+az0: us-east-1a
+az1: us-east-1b   
+#keynames: [odx_ansible_key, odx_wp_key]
+keyname_ansible: odx_ansible_key
+keyname_wp: odx_wp_key
+
+amitype: redhat #use amazon or redhat 
+all_available_cidrs: ["10.1.0.0/16", "10.2.0.0/16", "10.3.0.0/16"]
+list_of_available_cidrs: []
+security_groups: []
+allowed_ip: 167.219.88.140/32
+
+#RDS params
+db_size: 5
+db_instance_type: db.t2.micro
+db_engine: MySQL
+engine_version: 5.6.35
+param_group: wordpress
+db_subnet_group: "{{ prefix }}_db_subnet_group_{{ param_group }}"
+#db_subnet_group: "{{ prefix }}_db_subnet_group_{{ param_group }}"  -> Add the environment as well
+
+#DB credentials
+db_name: wordpress
+username: dbadmin
+password: mypassword
+
+# WP Instance
+wp_instance_name: "{{ prefix }}_{{ env }}_wordpress_master"
+wp_instance_type: t2.micro
+
+# Ansible Instance
+ansible_instance_type: t2.micro
+
+# Which version of WordPress to deploy
+##wp_version: 4.5.3
+#wp_sha256sum: 73c21224d42156150b948ca645a296a2431f1dd6a19350e0d8a72e465adde56d
+
+# These are the WordPress database settings
+##wp_db_name: wordpress 
+##wp_db_user: wordpress
+# Set your database password here 
+##wp_db_password: secret
+
+# WordPress settings
+
+# Disable All Updates
+# By default automatic updates are enabled, set this value to true to disable all automatic updates
+##auto_up_disable: false
+
+#Define Core Update Level
+#true  = Development, minor, and major updates are all enabled
+#false = Development, minor, and major updates are all disabled
+#minor = Minor updates are enabled, development, and major updates are disabled
+##core_update_level: true 
